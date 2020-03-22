@@ -33,7 +33,7 @@ namespace DatingApp.API
         {
             services.AddCors(options => {
                 options.AddPolicy(AllowAllOriginsPolicy, builder => {
-                    builder.AllowAnyOrigin();
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
@@ -74,7 +74,7 @@ namespace DatingApp.API
             
             app.UseEndpoints(endpoints =>
             {
-                    endpoints.MapControllers();
+                endpoints.MapControllers();
             });
             
 
