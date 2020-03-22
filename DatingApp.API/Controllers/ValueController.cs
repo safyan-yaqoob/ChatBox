@@ -1,13 +1,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
-    [ApiController]
+    [Authorize]
     [Route("api/[Controller]")]
+    [ApiController]
     public class ValueController: ControllerBase
     {
         private readonly DataContext _context;
@@ -16,12 +18,15 @@ namespace DatingApp.API.Controllers
         {
             _context=context;
         }
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
             var values=await _context.Values.ToListAsync();
             return Ok(values);
         }
+        
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValues(int id)
         {
