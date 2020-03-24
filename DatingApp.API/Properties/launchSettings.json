@@ -23,7 +23,7 @@
       "launchUrl": "api/value",
       "applicationUrl": "http://localhost:51341",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     }
   }
