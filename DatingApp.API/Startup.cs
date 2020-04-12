@@ -57,7 +57,8 @@ namespace DatingApp.API
                     };
                 });
             services.AddTransient<Seed>();  
-            services.AddAutoMapper(typeof(Startup));      
+            services.AddAutoMapper(typeof(Startup)); 
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));     
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
@@ -88,7 +89,7 @@ namespace DatingApp.API
             app.UseHttpsRedirection();
 
             app.UseCors(AllowAllOriginsPolicy);
-           // seeder.SeedUsers();
+            //seeder.SeedUsers();
 
             app.UseAuthentication();
             
