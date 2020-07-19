@@ -37,6 +37,8 @@ import { PhotoEdditorComponent } from './members/photo-edditor/photo-edditor.com
 import { FileUploadModule } from 'ng2-file-upload';
 import { CommonModule } from '@angular/common';
 import { ListResolver } from './_resolver/lists.resolvers';
+import { MessageResolver } from './_resolver/messages.resolvers';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 
 export function tokenGetter() {
@@ -57,6 +59,7 @@ export function tokenGetter() {
       MemberDetailComponent,
       MemberEditComponent,
       PhotoEdditorComponent,
+      MemberMessagesComponent
    ],
    imports: [
       CommonModule,
@@ -90,7 +93,8 @@ export function tokenGetter() {
       MemberListResolver,
       MemberEditResolver,
       PreventUnsavedChanges,
-      ListResolver
+      ListResolver,
+      MessageResolver
    ],
    bootstrap: [
       AppComponent
