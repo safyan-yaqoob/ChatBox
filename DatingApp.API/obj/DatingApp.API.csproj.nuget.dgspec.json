@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Visual Studio Projects\\DatingApp\\DatingApp.API\\DatingApp.API.csproj": {}
+    "D:\\ChatBox Angular\\ChatBox\\DatingApp.API\\DatingApp.API.csproj": {}
   },
   "projects": {
-    "D:\\Visual Studio Projects\\DatingApp\\DatingApp.API\\DatingApp.API.csproj": {
+    "D:\\ChatBox Angular\\ChatBox\\DatingApp.API\\DatingApp.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Visual Studio Projects\\DatingApp\\DatingApp.API\\DatingApp.API.csproj",
+        "projectUniqueName": "D:\\ChatBox Angular\\ChatBox\\DatingApp.API\\DatingApp.API.csproj",
         "projectName": "DatingApp.API",
-        "projectPath": "D:\\Visual Studio Projects\\DatingApp\\DatingApp.API\\DatingApp.API.csproj",
-        "packagesPath": "C:\\Users\\sufya\\.nuget\\packages\\",
-        "outputPath": "D:\\Visual Studio Projects\\DatingApp\\DatingApp.API\\obj\\",
+        "projectPath": "D:\\ChatBox Angular\\ChatBox\\DatingApp.API\\DatingApp.API.csproj",
+        "packagesPath": "C:\\Users\\Safyan Yaqoob\\.nuget\\packages\\",
+        "outputPath": "D:\\ChatBox Angular\\ChatBox\\DatingApp.API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\sufya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Safyan Yaqoob\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,6 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -40,6 +38,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -100,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
