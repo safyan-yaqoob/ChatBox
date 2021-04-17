@@ -75,7 +75,11 @@ namespace DatingApp.API.Data
                 
                 users = users.Where(e=>e.DateOfBirth >= minDOB && e.DateOfBirth <=maxDOB);
             }
-            
+
+            if (!string.IsNullOrEmpty(userParams.Gender))
+            {
+                users = users.Where(e => e.Gender == userParams.Gender);
+            }
             if(!string.IsNullOrEmpty(userParams.OrderBy))
             {
                 switch(userParams.OrderBy)

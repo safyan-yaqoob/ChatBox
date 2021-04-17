@@ -20,7 +20,7 @@
         <div>
           <strong>Last Active:</strong>
           <p>
-            {{user.lastActive}}
+            {{user.lastActive | date:'shortTime'}}
           </p>
         </div>
         <div>
@@ -43,15 +43,13 @@
       <div class="tab-panel">
         <tabset class="member-tabset" #memberTabs>
           <tab heading="About {{user?.knownAs}}">
-            <h4>Description</h4>
+            <h4>Overview</h4>
             <p>{{user.introduction}}</p>
-            <h4>Looking For</h4>
-            <p>{{user.lookingFor}}</p>
           </tab>
-          <tab heading="Interests">
+          <!-- <tab heading="Interests">
             <h4>Interests</h4>
             <p>{{user.interest}}</p>
-          </tab>
+          </tab> -->
           <tab heading="Photos">
             <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
           </tab>

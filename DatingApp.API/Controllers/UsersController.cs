@@ -19,11 +19,15 @@ namespace DatingApp.API.Controllers
     {
         private readonly IDatingRepository _repo;
         private readonly IMapper _mapper;
-        
-        public UsersController(IDatingRepository repo, IMapper mapper)
+        private readonly IAuthRepository _authRepository;
+
+        public UsersController(IDatingRepository repo,
+                               IMapper mapper,
+                               IAuthRepository authRepository)
         {
             _repo = repo;
             _mapper=mapper;
+            _authRepository = authRepository;
         }
 
         [HttpGet]
@@ -65,7 +69,13 @@ namespace DatingApp.API.Controllers
                 return Unauthorized();
             }
             var userFromRepo = await _repo.GetUser(id);
-
+            if (!string.IsNullOrEmpty(userForUpdateDto.Password))
+            {
+                byte[] passwordHash, passwordSalt;
+                _authRepository.CreatePasswordHash(userForUpdateDto.Password, out passwordHash, out passwordSalt);
+                userForUpdateDto.PasswordHash = passwordHash;
+                userForUpdateDto.PasswordSalt = passwordSalt;
+            }
             _mapper.Map(userForUpdateDto,userFromRepo);
 
             if(await _repo.SaveAll())
