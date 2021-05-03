@@ -1,25 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Helpers;
+using DatingApp.API.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -41,7 +35,7 @@ namespace DatingApp.API
             {
                 options.AddPolicy(AllowAllOriginsPolicy, builder =>
                 {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    builder.AllowAnyOrigin().AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
@@ -65,18 +59,7 @@ namespace DatingApp.API
                 {
                     Title = "ChatBox API",
                     Version = "v2",
-                    Description = "ChatBox Api for angular",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "João Victor Ignacio",
-                        Email = "ignaciojvig@gmail.com",
-                        Url = new Uri("https://www.linkedin.com/in/ignaciojv/")
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "MIT",
-                        Url = new Uri("https://github.com/ignaciojvig/ChatAPI/blob/master/LICENSE")
-                    }
+                    Description = "ChatBox Api for angular"
                 });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -105,6 +88,10 @@ namespace DatingApp.API
             services.AddTransient<Seed>();
             services.AddAutoMapper(typeof(Startup));
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
+            services.AddSignalR(options=> {
+                options.EnableDetailedErrors = true;
+            });
 
             //injecting api services.
             services.AddScoped<IAuthRepository, AuthRepository>();
@@ -142,19 +129,20 @@ namespace DatingApp.API
 
             app.UseHttpsRedirection();
 
-            app.UseCors(AllowAllOriginsPolicy);
-
             //seeder.SeedUsers();
 
             app.UseAuthentication();
 
             app.UseRouting();
 
+            app.UseCors(AllowAllOriginsPolicy);
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessageHub>("/MessageHub");
             });
 
             app.UseSwagger();

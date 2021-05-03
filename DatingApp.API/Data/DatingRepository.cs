@@ -111,6 +111,7 @@ namespace DatingApp.API.Data
                 return user.Likees.Where(e=>e.LikerId==id).Select(i=>i.LikeeId);
             }
         }
+
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync()>0;
@@ -155,6 +156,12 @@ namespace DatingApp.API.Data
                             .ToListAsync();
 
             return messages;
+        }
+
+        public void Update<T>(T entity) where T : class
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

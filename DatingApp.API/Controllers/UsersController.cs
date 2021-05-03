@@ -73,17 +73,19 @@ namespace DatingApp.API.Controllers
             {
                 byte[] passwordHash, passwordSalt;
                 _authRepository.CreatePasswordHash(userForUpdateDto.Password, out passwordHash, out passwordSalt);
-                userForUpdateDto.PasswordHash = passwordHash;
-                userForUpdateDto.PasswordSalt = passwordSalt;
+                userFromRepo.PasswordHash = passwordHash;
+                userFromRepo.PasswordSalt = passwordSalt;
             }
             _mapper.Map(userForUpdateDto,userFromRepo);
-
-            if(await _repo.SaveAll())
+            try
             {
-                return NoContent();
+                _repo.Update<User>(userFromRepo);
             }
-            throw new Exception($"Updating user {id} failed on save");
-            
+            catch (Exception ex)
+            {
+                throw new Exception($"Updating user {id} failed on save");
+            }
+            return NoContent();
         }
 
         [HttpPost("{id}/Like/{recipientId}")]
