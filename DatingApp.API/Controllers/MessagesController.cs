@@ -7,9 +7,11 @@ using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using DatingApp.API.Helpers;
+using DatingApp.API.Hubs;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace DatingApp.API.Controllers
 {
@@ -20,9 +22,14 @@ namespace DatingApp.API.Controllers
     {
         private readonly IDatingRepository _repo;
         private readonly IMapper _mapper;
-        public MessagesController(IDatingRepository repo, IMapper mapper)
+        private readonly IHubContext<MessageHub> _hubContext;
+
+        public MessagesController(IDatingRepository repo, 
+            IMapper mapper,
+            IHubContext<MessageHub> hubContext)
         {
             _mapper = mapper;
+            _hubContext = hubContext;
             _repo = repo;
         }
 

@@ -24,7 +24,6 @@ export class MemberDetailComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe(params => {
-      debugger
       const selectedTab = params.tab;
       this.memberTabs.tabs[selectedTab].active = true;
     });

@@ -9,6 +9,7 @@ import { NgxGalleryModule } from 'ngx-gallery-9';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,6 +63,7 @@ export function tokenGetter() {
       MemberMessagesComponent
    ],
    imports: [
+      BrowserAnimationsModule,
       CommonModule,
       BrowserModule,
       AppRoutingModule,
@@ -78,8 +80,8 @@ export function tokenGetter() {
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,
-            whitelistedDomains: ['localhost:51341'],
-            blacklistedRoutes: ['localhost:51341/api/auth']
+            whitelistedDomains: ['localhost:44399'],
+            blacklistedRoutes: ['localhost:44399/api/auth']
          }
       })
    ],

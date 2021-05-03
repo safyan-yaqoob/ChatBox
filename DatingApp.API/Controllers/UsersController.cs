@@ -19,11 +19,15 @@ namespace DatingApp.API.Controllers
     {
         private readonly IDatingRepository _repo;
         private readonly IMapper _mapper;
-        
-        public UsersController(IDatingRepository repo, IMapper mapper)
+        private readonly IAuthRepository _authRepository;
+
+        public UsersController(IDatingRepository repo,
+                               IMapper mapper,
+                               IAuthRepository authRepository)
         {
             _repo = repo;
             _mapper=mapper;
+            _authRepository = authRepository;
         }
 
         [HttpGet]
@@ -65,15 +69,23 @@ namespace DatingApp.API.Controllers
                 return Unauthorized();
             }
             var userFromRepo = await _repo.GetUser(id);
-
-            _mapper.Map(userForUpdateDto,userFromRepo);
-
-            if(await _repo.SaveAll())
+            if (!string.IsNullOrEmpty(userForUpdateDto.Password))
             {
-                return NoContent();
+                byte[] passwordHash, passwordSalt;
+                _authRepository.CreatePasswordHash(userForUpdateDto.Password, out passwordHash, out passwordSalt);
+                userFromRepo.PasswordHash = passwordHash;
+                userFromRepo.PasswordSalt = passwordSalt;
             }
-            throw new Exception($"Updating user {id} failed on save");
-            
+            _mapper.Map(userForUpdateDto,userFromRepo);
+            try
+            {
+                _repo.Update<User>(userFromRepo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Updating user {id} failed on save");
+            }
+            return NoContent();
         }
 
         [HttpPost("{id}/Like/{recipientId}")]
