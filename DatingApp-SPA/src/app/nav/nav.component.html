@@ -1,18 +1,35 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand" [routerLink]="['/home']" >ChatBox</a>
+    <a class="navbar-brand" [routerLink]="['/home']">ChatBox</a>
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/members']" >Matches</a>
+        <a class="nav-link" [routerLink]="['/members']">Matches</a>
       </li>
-      <!-- <li class="nav-item" routerLinkActive="active" >
-        <a class="nav-link" [routerLink]="['/lists']" >Lists</a>
-      </li> -->
-      <li class="nav-item" routerLinkActive="active" >
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/messages']">Messages</a>
       </li>
     </ul>
-  
+
+    <div class="dropdown mr-5" dropdown>
+      <a class="text-light" dropdownToggle>
+        <img class="notification-icon" src="../../assets/211694-32.png">
+        <span class="status-number bg-info text-white">9+</span>
+      </a>
+
+      <div class="dropdown-menu notifications mt-3" *dropdownMenu>
+        <a href="#" class="notification-item  pink-gradient-active new">
+          <figure class="avatar avatar-40">
+            <img class="notification-img mr-3" src="../../assets/user.png" alt="Generic placeholder image">
+          </figure>
+          <div class="notification-body">
+            <h5 class="mt-0">Media heading</h5>
+            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
     <div *ngIf="loggedIn()" class="dropdown" dropdown>
       <span class="mr-1">
         <img src="{{photoUrl || '../../assets/user.png'}}" alt="">
@@ -20,22 +37,22 @@
       <a class="dropdown-toggle text-light" dropdownToggle>
         Welcome {{authService.decodedToken?.unique_name | titlecase}}
       </a>
-    
+
       <div class="dropdown-menu mt-3" *dropdownMenu>
         <a class="dropdown-item" [routerLink]="['/member/edit']"><i class="fa fa-user mr-1"></i>Edit Profile</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item"  (click)="logout()"><i class="fa fa-sign-out mr-1"></i>Logout</a>
+        <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out mr-1"></i>Logout</a>
       </div>
     </div>
-  
+
     <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
-      <input class="form-control mr-sm-2" type="text" name="username" 
-      placeholder="Username" required [(ngModel)]="model.username">
-      <input class="form-control mr-sm-2" type="password" name="password" 
-      placeholder="Password" required [(ngModel)]="model.password">
+      <input class="form-control mr-sm-2" type="text" name="username" placeholder="Username" required
+        [(ngModel)]="model.username">
+      <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required
+        [(ngModel)]="model.password">
       <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
-  
+
   </div>
-  
+
 </nav>

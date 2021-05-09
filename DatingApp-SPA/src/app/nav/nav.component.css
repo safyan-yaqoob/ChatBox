@@ -7,3 +7,44 @@ img {
     border: 2px solid white;
     display: inline;
 }
+
+.dropdown{
+    cursor: pointer;
+}
+.notifications{
+    width: 300px;
+}
+.notification-img{
+    border-radius: 25px;
+}
+.notification-icon{
+    border: none;
+}
+.notification-item {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    padding: 6px 9px;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+.notification-item:hover{
+    background-color: #eee;
+}
+.notification-body h5{
+    color: #777;
+}
+.status-number{
+    height: 15px;
+  width: 16px;
+  display: inline-block;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  line-height: 15px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 9px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}

@@ -61,5 +61,4 @@ export class RegisterComponent implements OnInit {
   cancel() {
     this.cancelReister.emit(false);
   }
-
 }

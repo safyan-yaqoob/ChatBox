@@ -22,6 +22,7 @@ export class MemberMessagesComponent implements OnInit {
 
   ngOnInit() {
     this.loadMessages();
+    this.subscribeEventToGetMessage();
   }
 
   loadMessages() {
@@ -38,14 +39,15 @@ export class MemberMessagesComponent implements OnInit {
       })
     )
     .subscribe(messages => {
-      this.messages = messages;
+      debugger
+      this.messages = messages.sort().reverse();
     }, error => {
       this.alertify.error(error);
     });
   }
 
   sendMessage() {
-    this.newMessage.senderId = this.authService.decodedToken.nameid
+    this.newMessage.senderId = +this.authService.decodedToken.nameid
     this.newMessage.recipientId = this.recipientId;
     this.chatService.sendMessage(this.newMessage);
     // this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage).subscribe((message: Message) => {
@@ -54,5 +56,11 @@ export class MemberMessagesComponent implements OnInit {
     // }, error => {
     //   this.alertify.error(error);
     // });
+  }
+
+  subscribeEventToGetMessage(){
+    this.chatService.messageReceived.subscribe((message)=>{
+      this.messages.push(message);
+    })
   }
 }

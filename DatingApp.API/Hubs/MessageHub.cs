@@ -23,27 +23,26 @@ namespace DatingApp.API.Hubs
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task SendMessage(Message messageDto)
+        public async Task SendMessage(MessageForCreationDto messageDto, string connectionId)
         {
-            await Clients.All.SendAsync("MessageReceived", messageDto);
+            if (messageDto.RecipientId != 0)
+            {
 
-            //List<string> receiverIds = _connections.GetConnections(messageDto.RecipientId.ToString()).ToList<string>();
-            //if (receiverIds.Count > 0)
-            //{
+                var recipient = await _repository.GetUser(messageDto.RecipientId);
+                if (recipient != null)
+                {
+                    var message = _mapper.Map<Message>(messageDto);
 
-            //    var recipient = await _repository.GetUser(messageDto.RecipientId);
-            //    if (recipient != null)
-            //    {
-            //        var message = _mapper.Map<Message>(messageDto);
+                    _repository.Add(message);
 
-            //        _repository.Add(message);
-
-            //        if(await _repository.SaveAll())
-            //        {
-            //            await Clients.Clients(receiverIds).SendAsync("MessageReceived", messageDto);
-            //        }
-            //    }
-            //}
+                    if (await _repository.SaveAll())
+                    {
+                        await Clients.All.SendAsync("MessageReceived", messageDto);
+                    }
+                }
+            }
         }
+
+        public string getConnectionId() => Context.ConnectionId;
     }
 }
