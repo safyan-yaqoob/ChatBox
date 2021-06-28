@@ -5,12 +5,12 @@
     </div>
     <ul class="chat">
       <li *ngFor="let message of messages">
-        
+    
         <div *ngIf="message.senderId != recipientId">
           <div class="chat-body text-right">
             <span style="font-size: 12px;">{{message.messageSent|date:'shortTime'}}</span>
             <div class="send-message">
-              <p>{{message.content}}</p>
+              <p class="text-left">{{message.content}}</p>
             </div>
           </div>
         </div>
@@ -21,9 +21,10 @@
           </span>
           <span style="font-size: 12px;">{{message.recipientKnownAs}},{{message.messageSent | date:'shortTime'}}</span>
           <div class="receive-message">
-            <p>{{message.content}}</p>
+            <p class="text-left">{{message.content}}</p>
           </div>
         </div>
+
       </li>
     </ul>
   </div>

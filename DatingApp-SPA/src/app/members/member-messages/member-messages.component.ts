@@ -50,6 +50,9 @@ export class MemberMessagesComponent implements OnInit {
     this.newMessage.senderId = +this.authService.decodedToken.nameid
     this.newMessage.recipientId = this.recipientId;
     this.chatService.sendMessage(this.newMessage);
+    this.newMessage.content='';
+
+
     // this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage).subscribe((message: Message) => {
     //   this.messages.unshift(message);
     //   this.newMessage.content = '';
